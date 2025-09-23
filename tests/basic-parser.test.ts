@@ -20,3 +20,22 @@ test("parseCSV yields only arrays", async () => {
     expect(Array.isArray(row)).toBe(true);
   }
 });
+
+test("parseCSV ignores empty rows", async () => {
+  const results = await parseCSV(PEOPLE_CSV_PATH)
+  for(const row of results) {
+    expect(row[0] == "" && row[1] == "").toBe(false);
+  }
+});
+
+test("parseCSV handles commas in quoted strings", async () => {
+  const results = await parseCSV(PEOPLE_CSV_PATH)
+  expect(results[6]).toEqual(["\"Hi, I\'m Maddy\"", "25"]);
+});
+
+test("parseCSV yields arrays of same length", async () => {
+  const results = await parseCSV(PEOPLE_CSV_PATH)
+  for(const row of results) {
+    expect(results[0].length == row.length).toBe(true);
+  }
+});
