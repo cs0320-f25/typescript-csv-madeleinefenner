@@ -28,13 +28,13 @@ test("parseCSV yields only arrays", async () => {
 
 test("parseCSV ignores empty rows", async () => {
   const results = await parseCSV(PEOPLE_CSV_PATH_EMPTY_ROW, undefined)
-  // checks if empty row ["",""] is ignored
+  // check if empty row ["",""] is ignored
   expect(results[3]).toEqual(["Charlie", "25"]);
 });
 
 test("parseCSV yields arrays of same length", async () => {
   const results = await parseCSV(PEOPLE_CSV_PATH_EXTRA_COLUMN, undefined)
-  // checks if row with extra column ["Alice", "23", "23"] is ignored
+  // check if row with extra column ["Alice", "23", "23"] is ignored
   expect(results[1]).toEqual(["Bob", "30"]);
 });
 
@@ -54,6 +54,7 @@ test("parseCSV handles whitespace", async () => {
 
 test("parseCSV validates with Zod schemas", async () => {
   const results = await parseCSV(PEOPLE_CSV_PATH, PersonRowSchema)
+  // check if "Bob,thirty" is filtered out, objects are created
     expect(results[0]).toEqual({name: "Alice", age: 23});
     expect(results[1]).toEqual({name: "Charlie", age: 25});
     expect(results[2]).toEqual({name: "Nim", age: 22});

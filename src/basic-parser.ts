@@ -13,7 +13,8 @@ import { z } from "zod";
  * You shouldn't need to alter them.
  * 
  * @param path The path to the file being loaded.
- * @returns a "promise" to produce a 2-d array of cell values
+ * @param schema Optional Zod schema, if undefined validation is not performed
+ * @returns a "promise" to produce a 2-d array of cell values, or an array of type T
  */
 export async function parseCSV<T>(path: string, schema: z.ZodType<T> | undefined): Promise<string[][] | T[]> {
   // This initial block of code reads from a file in Node.js. The "rl"
